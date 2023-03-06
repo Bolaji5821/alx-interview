@@ -1,27 +1,25 @@
 #!/usr/bin/python3
-"""Island perimeter interview question module
+"""Island perimeter computing module.
 """
 
 
 def island_perimeter(grid):
-    """ccomputes the perimeter of an island with no lakes
+    """Computes the perimeter of an island with no lakes.
     """
+    perimeter = 0
     if type(grid) != list:
         return 0
-    rows, cols = len(grid), len(grid[0])
-    for r in range(rows):
-        for c in range(cols):
-            if grid[r][c] == 1:
-                return dfs(grid, r, c)
-
-
-def dfs(grid, r, c):
-    rows, cols = len(grid), len(grid[0])
-    if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 0:
-        return 1  # boundary or water cell encountered
-    if grid[r][c] == -1:
-        return 0  # already visited cell
-    grid[r][c] = -1  # mark the cell as visited
-    perimeter = dfs(grid, r-1, c) + dfs(grid, r+1, c) + dfs(grid, r, c-1)\
-        + dfs(grid, r, c+1)
-    return perimeter
+    n = len(grid)
+    for i, row in enumerate(grid):
+        m = len(row)
+        for j, cell in enumerate(row):
+            if cell == 0:
+                continue
+            edges = (
+                i == 0 or (len(grid[i - 1]) > j and grid[i - 1][j] == 0),
+                j == m - 1 or (m > j + 1 and row[j + 1] == 0),
+                i == n - 1 or (len(grid[i + 1]) > j and grid[i + 1][j] == 0),
+                j == 0 or row[j - 1] == 0,
+            )
+            perimeter += sum(edges)
+    return
