@@ -1,9 +1,13 @@
 #!/usr/bin/python3
+"""Island perimeter interview question module
+"""
 
-from typing import List
 
-
-def island_perimeter(grid: List[List[int]]) -> int:
+def island_perimeter(grid):
+    """ccomputes the perimeter of an island with no lakes
+    """
+    if type(grid) != list:
+        return 0
     rows, cols = len(grid), len(grid[0])
     for r in range(rows):
         for c in range(cols):
